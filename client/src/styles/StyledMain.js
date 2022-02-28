@@ -126,6 +126,7 @@ const StyledMain = styled(motion.main)`
         align-items: center;
         background-color: ${(props) => props.theme.maroon};
         color: var(--white);
+        cursor: pointer;
     }
 
     .short__url__input{
