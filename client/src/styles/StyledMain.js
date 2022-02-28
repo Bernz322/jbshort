@@ -94,6 +94,44 @@ const StyledMain = styled(motion.main)`
         }
     }
 
+    input.input__url__after{
+        width: calc(100% - 100px);
+        margin: 15px 0;
+        height: 50px;
+        border-radius: 5px 0 0 5px;
+        outline: none;
+        border: 1px solid var(--light-grey);
+        padding: 10px;
+        font-weight: 400;
+        font-size: var(--fz-lg);
+        color: ${(props) => props.theme.maroon};
+        border-left: none;
+
+        @media (max-width: 400px) {
+            font-size: var(--fz-sm);
+        }
+    }
+
+    div.copy__url{
+        width: 100px;
+        margin: 15px 0;
+        border: 1px solid var(--light-grey);
+        border-left: none;
+        padding: 10px;
+        font-weight: 400;
+        font-size: var(--fz-lg);
+        border-radius: 0 5px 5px 0 ;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: ${(props) => props.theme.maroon};
+        color: var(--white);
+    }
+
+    .short__url__input{
+        display: flex;
+    }
+
     button{
         background-color: ${(props) => props.theme.maroon};
         color: var(--white);

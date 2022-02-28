@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import axios from 'axios'
 import validator from 'validator'
 import { nanoid } from 'nanoid';
@@ -13,6 +12,10 @@ const Main = () => {
     const [shortenUrlData, setShortenUrlData] = useState(""); // all data after the fullUrl is shortened
     const [error, setError] = useState(""); // error message
     const [blank, setBlank] = useState(false); // error message
+    const copyLink = useRef(null); // ref for the copy link button
+    const [linkCopied, setLinkCopied] = useState(false); // error message
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,6 +41,7 @@ const Main = () => {
         setShortenUrlData("")
         setFullUrl("")
         setCustomUrl("")
+        setLinkCopied(false)
     }
 
     const handleFullURL = (e) => {
@@ -48,6 +52,13 @@ const Main = () => {
     const handleshortURL = (e) => {
         setCustomUrl(e.target.value)
         setError("")
+    }
+
+    const copyShortLink = (e) => {
+        copyLink.current?.select();
+        setBlank(false)
+        document.execCommand('copy');
+        setLinkCopied(true)
     }
 
     return (
@@ -93,14 +104,20 @@ const Main = () => {
                             }
                         </div>
                         {shortenUrlData ?
-                            <input className='input__url' type="text" value={
-                                process.env.NODE_ENV !== 'production' ? `http://localhost:8888/${shortenUrlData.shortUrl}` : `https://jbshort.herokuapp.com/${shortenUrlData.shortUrl}`
-                            } readOnly />
+                            <div className="short__url__input">
+                                <input className='input__url__after' type="text" value={
+                                    process.env.NODE_ENV !== 'production' ? `http://localhost:8888/${shortenUrlData.shortUrl}` : `https://jbshort.herokuapp.com/${shortenUrlData.shortUrl}`
+                                } readOnly ref={copyLink} />
+                                <div className='copy__url' onClick={copyShortLink}>Copy</div>
+                            </div>
                             :
                             <input className='input__url' type="text" value={customUrl} onChange={handleshortURL} placeholder='Custom url' />
                         }
                         {error === 409 &&
                             <p style={{ color: "red" }}>Your custom URL is already taken. Try a new one.</p>
+                        }
+                        {linkCopied &&
+                            <p style={{ color: "green" }}>Copied</p>
                         }
 
                         {shortenUrlData ?
