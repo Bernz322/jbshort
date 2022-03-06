@@ -72,8 +72,8 @@ const Main = () => {
             }}>
             <section className="section">
                 <div className="description">
-                    <p>Make it short with</p>
-                    <h1>JBShort</h1>
+                    <p>A not so short URL Shortener but free.</p>
+                    <h1><span>Try it with </span>JBShort</h1>
                 </div>
                 <div className="container">
                     <form onSubmit={handleSubmit}>
@@ -92,7 +92,7 @@ const Main = () => {
                         }
 
                         {blank &&
-                            <p style={{ color: "red" }}>Please enter a valid URL with "https"</p>
+                            <p style={{ color: "red" }}>Please enter a valid URL (including "http/s")</p>
                         }
 
                         <div className="desc__">
