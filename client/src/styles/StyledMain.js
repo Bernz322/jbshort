@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro'
 import { motion } from 'framer-motion'
 
+
 const StyledMain = styled(motion.main)`
     height: calc(100vh - 135px);
     width: 100vw;
@@ -8,6 +9,7 @@ const StyledMain = styled(motion.main)`
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 
     section{
         width: 600px;
@@ -26,14 +28,25 @@ const StyledMain = styled(motion.main)`
         justify-content: center;
         margin-bottom: 30px;
         font-size: var(--fz-xl);
+
+        @media screen and (max-height: 620px) {
+            display: none;
+        }
     }
 
     p{
         color: ${(props) => props.theme.p};
+        text-align: center;
     }
 
     h1{
         color: ${(props) => props.theme.maroon};
+
+        span{
+            font-size: var(--fz-xl);
+            color: ${(props) => props.theme.p};
+            font-weight: 400;
+        }
     }
 
     .desc__ {
@@ -49,7 +62,7 @@ const StyledMain = styled(motion.main)`
 
     h3{
 
-        @media (max-width: 400px) {
+        @media screen and (max-width: 400px){
             font-size: var(--fz-sm);
         }
         
