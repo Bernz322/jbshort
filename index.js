@@ -3,16 +3,24 @@ const express = require('express')
 const mongoose = require('mongoose')
 const PORT = process.env.PORT || 8888
 const ShortUrl = require('./models/shortUrl')
+var cors = require('cors')
 const app = express()
 const path = require('path')
 
 // Serve all static files first
 app.use(express.static(path.resolve('client/build')))
 
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+ });
+
 mongoose.connect(process.env.MONGODB_URL).then(() => console.log("Successfully Connected to the DB")).catch((err) => console.log(err))
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+app.use(cors())
 
 /**
  * This route is used to shorten the inputted URL
@@ -50,7 +58,7 @@ app.post('/shorten', async (req, res) => {
                         // await urlData.save();
                         // res.status(200).json(urlData);
                     })
-                    
+
                 } catch (err) {
                     res.status(500).json(err)
                     console.log(err)
@@ -72,7 +80,7 @@ app.post('/shorten', async (req, res) => {
  * @params {shortUrl}
  * @returns {void}
  */
-app.get('/:shortUrl', async (req, res) => {
+app.get('/redirect/:shortUrl', async (req, res) => {
     const shortUrl = req.params.shortUrl
     try {
         ShortUrl.findOne({ shortUrl }, (err, data) => {
@@ -81,7 +89,7 @@ app.get('/:shortUrl', async (req, res) => {
                 res.status(404).json("Your provided short url may have expired. Try shortening it again.");
                 res.redirect("/")
             } else {
-                res.redirect(data.fullUrl)
+                res.status(200).json(data.fullUrl)
             }
         })
     } catch (err) {

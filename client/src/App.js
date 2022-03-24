@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { ThemeProvider } from 'styled-components/macro'
 
-import { Header, Main, Footer } from './components'
+import { Header, Main, Footer, Redirect } from './components'
 import { lightTheme, darkTheme, GlobalStyles } from './styles/theme'
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   const [theme, setTheme] = useState(JSON.parse(localStorage.getItem('theme')) || 'light')
@@ -20,7 +21,10 @@ function App() {
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyles />
       <Header themeToggler={themeToggler} theme={theme} />
-      <Main />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/:id" element={<Redirect />} />
+      </Routes>
       <Footer />
     </ThemeProvider>
   );
