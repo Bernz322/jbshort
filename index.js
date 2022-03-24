@@ -40,9 +40,8 @@ app.post('/shorten', async (req, res) => {
                 try {
                     ShortUrl.findOne({ shortUrl: createdShortUrl }, async (err, data) => {
                         if (data) {
-                            // If the inputted short or custom URL already exists in the DB, return error
-                            console.log("Custom or Short URL already exists")
-                            res.status(409).json(data);
+                            // If the inputted short or custom URL already exists in the DB, return message
+                            res.status(200).json(data);
                         } else {
                             // else create a new short URL for it
                             await urlData.save()
@@ -74,8 +73,6 @@ app.post('/shorten', async (req, res) => {
  * @returns {void}
  */
 app.get('/:shortUrl', async (req, res) => {
-    // CHANGE THIS BEFORE DEPLOYING, FOLLOW:
-    // const LOGIN_URI = process.env.NODE_ENV !== 'production' ? 'http://localhost:8888/login' : 'https://spotify-api-profile-app.herokuapp.com/login'
     const shortUrl = req.params.shortUrl
     try {
         ShortUrl.findOne({ shortUrl }, (err, data) => {
@@ -85,30 +82,6 @@ app.get('/:shortUrl', async (req, res) => {
                 res.redirect("/")
             } else {
                 res.redirect(data.fullUrl)
-            }
-        })
-    } catch (err) {
-        console.log(err)
-    }
-})
-
-/**
- * This route is used to get ALL links in the DB
- * @params {void}
- * @returns {Object/ promise}
- */
-
-app.get('/', async (req, res) => {
-    // NOTE: THIS NEEDS TO BE CHANGED FIRST AND VERIFIED
-    // Change this to get all created short links
-    const { shortUrl } = req.body
-    try {
-        ShortUrl.findOne({ shortUrl }, (err, data) => {
-            if (data) {
-                console.log(data)
-                res.status(200).json(data);
-            } else {
-                console.log(err);
             }
         })
     } catch (err) {

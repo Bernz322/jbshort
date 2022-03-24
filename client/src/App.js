@@ -1,11 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ThemeProvider } from 'styled-components/macro'
 
 import { Header, Main, Footer } from './components'
 import { lightTheme, darkTheme, GlobalStyles } from './styles/theme'
 
 function App() {
-  const [theme, setTheme] = useState("light")
+  const [theme, setTheme] = useState(JSON.parse(localStorage.getItem('theme')) || 'light')
+
+  useEffect(() => {
+    localStorage.setItem("theme", JSON.stringify(theme));
+  }, [theme]);
 
   const themeToggler = () => {
     theme === "light" ? setTheme("dark") : setTheme("light")
@@ -15,7 +19,7 @@ function App() {
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyles />
-      <Header themeToggler={themeToggler} theme={theme}/>
+      <Header themeToggler={themeToggler} theme={theme} />
       <Main />
       <Footer />
     </ThemeProvider>
