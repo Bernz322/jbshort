@@ -120,7 +120,7 @@ const Main = () => {
                         {shortenUrlData ?
                             <div className="short__url__input">
                                 <input className='input__url__after' type="text" value={
-                                    process.env.NODE_ENV !== 'production' ? `http://localhost:8888/${shortenUrlData.shortUrl}` : `https://jbshort.xyz/${shortenUrlData.shortUrl}`
+                                    process.env.NODE_ENV !== 'production' ? `http://localhost:8888/${shortenUrlData.shortUrl}` : `www.jbshort.xyz/${shortenUrlData.shortUrl}`
                                 } readOnly ref={copyLink} />
                                 <div className='copy__url' onClick={copyShortLink}>Copy</div>
                             </div>
