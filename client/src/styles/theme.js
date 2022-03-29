@@ -13,7 +13,7 @@ export const darkTheme = {
     body: "#212121",
     color: "#ffffff",
     p: "#ffffff",
-    maroon: "#800000"
+    maroon: "#c60f1d"
 }
 
 export const GlobalStyles = createGlobalStyle`

@@ -5,13 +5,13 @@ import styled, { keyframes } from 'styled-components/macro';
 
 const bounce = keyframes`
     0% {
-    top: 30px;
-    height: 5px;
-    border-radius: 60px 60px 20px 20px;
-    transform: scaleX(2);
+    top: 80px;
+    height: 50px;
+    border-radius: 80px 80px 70px 70px;
+    transform: scaleX(1.2);
   }
   35% {
-    height: 15px;
+    height: 65px;
     border-radius: 50%;
     transform: scaleX(1);
   }
@@ -21,31 +21,43 @@ const bounce = keyframes`
 `
 
 const StyledRedirect = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    height: calc(100vh - 135px);
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 999;
 
-  .text {
-    color: #c32148;
-    display: inline-block;
-    margin-left: 5px;
+    .main-loader{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+
+    .text {
+        color: ${(props) => props.theme.maroon};
+        display: inline-block;
+        margin-left: 5px;
+        font-size: clamp(2.5rem, 10vw, 6rem);
     }
 
     .bounceball {
         position: relative;
         display: inline-block;
-        height: 37px;
-        width: 15px;
+        height: 87px;
+        width: 65px;
         &:before {
             position: absolute;
             content: '';
             display: block;
             top: 0;
-            width: 15px;
-            height: 15px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            background-color: #c32148;
+            background-color: ${(props) => props.theme.maroon};
             transform-origin: 50%;
             animation: ${bounce} 500ms alternate infinite ease;
         }
@@ -75,9 +87,11 @@ export default function Redirect() {
     }, [id, history])
     return (
         <StyledRedirect>
-            <div class="loading">
-                <div class="bounceball"></div>
-                <div class="text">NOW LOADING</div>
+            <div className="main-loader">
+                <div class="loading">
+                    <div class="bounceball"></div>
+                    <div class="text">NOW LOADING</div>
+                </div>
             </div>
         </StyledRedirect>
     )
