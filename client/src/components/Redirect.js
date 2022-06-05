@@ -41,6 +41,7 @@ const StyledRedirect = styled.div`
         color: ${(props) => props.theme.maroon};
         display: inline-block;
         margin-left: 5px;
+        margin-top: 35px;
         font-size: clamp(2.5rem, 10vw, 6rem);
     }
 
@@ -68,29 +69,29 @@ export default function Redirect() {
     const { id } = useParams();
     const history = useNavigate();
 
-    useEffect(() => {
-        const redirect = async () => {
-            try {
-                const res = await axios.get(`redirect/${id}`);
-                console.log(res.data)
-                if (!res.data) {
-                    alert('Invalid URL');
-                    history.push('/');
-                } else {
-                    window.location.href = `${res.data}`;
-                }
-            } catch (error) {
-                console.log(error)
+    const redirect = async () => {
+        try {
+            const res = await axios.get(`redirect/${id}`);
+            if (!res.data) {
+                alert('Invalid URL');
+                history('/');
+            } else {
+                window.location.href = `${res.data}`;
             }
+        } catch (error) {
+            history('/error/NotFound')
         }
+    }
+
+    useEffect(() => {
         redirect()
-    }, [id, history])
+    }, [])
     return (
         <StyledRedirect>
             <div className="main-loader">
-                <div class="loading">
-                    <div class="bounceball"></div>
-                    <div class="text">NOW LOADING</div>
+                <div className="loading">
+                    <div className="bounceball"></div>
+                    <div className="text">NOW LOADING</div>
                 </div>
             </div>
         </StyledRedirect>

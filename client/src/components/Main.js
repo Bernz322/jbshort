@@ -15,7 +15,7 @@ const Main = () => {
     const [error2, setError2] = useState("");
     const copyLink = useRef(null);
     const [linkCopied, setLinkCopied] = useState(false);
-    const [loader, setLoader] = useState(false); 
+    const [loader, setLoader] = useState(false);
     const [disable, setDisable] = useState(false);
     const nanoid = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVabcdefghijklmnopqrstuv1234567890', 5)
 
@@ -32,9 +32,6 @@ const Main = () => {
         setDisable(true)
         try {
             const res = await axios.post("/shorten", { fullUrl, shortUrl: customUrl ? customUrl : nanoid() });
-            console.log(res.data)
-            console.log(res.data.fullUrl)
-            console.log(fullUrl)
             if (res.data.fullUrl !== fullUrl) {
                 setError2("Your inputted short URL is already taken. Please try another one.");
                 setCustomUrl("")

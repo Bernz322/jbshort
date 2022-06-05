@@ -1,6 +1,8 @@
 import { StyledHeader } from '../styles'
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ themeToggler, theme }) => {
+    const history = useNavigate();
 
     return (
         <StyledHeader initial="hidden"
@@ -11,7 +13,7 @@ const Header = ({ themeToggler, theme }) => {
                 hidden: { opacity: 0, x: 200 }
             }}>
             <nav>
-                <p className='logo'>JBShort</p>
+                <p onClick={() => history('/')} className='logo'>JBShort</p>
                 <div className="theme">
                     <div className="toggler" onClick={() => themeToggler()}>
                         {theme === 'light' ?
@@ -22,7 +24,7 @@ const Header = ({ themeToggler, theme }) => {
                     </div>
                 </div>
             </nav>
-        </StyledHeader>
+        </StyledHeader >
     );
 }
 

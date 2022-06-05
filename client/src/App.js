@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { ThemeProvider } from 'styled-components/macro'
 
 import { Header, Main, Footer, Redirect } from './components'
+import Page404 from './Page404'
 import { lightTheme, darkTheme, GlobalStyles } from './styles/theme'
 import { Routes, Route } from "react-router-dom";
 
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/:id" element={<Redirect />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
       <Footer />
     </ThemeProvider>

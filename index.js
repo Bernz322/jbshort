@@ -10,11 +10,11 @@ const path = require('path')
 // Serve all static files first
 app.use(express.static(path.resolve('client/build')))
 
-app.all('*', function(req, res, next) {
+app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
- });
+});
 
 mongoose.connect(process.env.MONGODB_URL).then(() => console.log("Successfully Connected to the DB")).catch((err) => console.log(err))
 
@@ -84,15 +84,11 @@ app.get('/redirect/:shortUrl', async (req, res) => {
     const shortUrl = req.params.shortUrl
     try {
         ShortUrl.findOne({ shortUrl }, (err, data) => {
-            if (!data) {
-                console.log(err);
-                res.status(404).json("Your provided short url may have expired. Try shortening it again.");
-                res.redirect("/")
-            } else {
-                res.status(200).json(data.fullUrl)
-            }
+            if (!data) return res.status(404).json("Your provided short url may have expired. Try shortening it again.");
+            res.status(200).json(data.fullUrl)
         })
     } catch (err) {
+        res.status(500).json({ message: err })
         console.log(err)
     }
 })
