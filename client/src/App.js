@@ -5,6 +5,7 @@ import { Header, Main, Footer, Redirect } from './components'
 import Page404 from './Page404'
 import { lightTheme, darkTheme, GlobalStyles } from './styles/theme'
 import { Routes, Route } from "react-router-dom";
+import "./styles/font.css";
 
 function App() {
   const [theme, setTheme] = useState(JSON.parse(localStorage.getItem('theme')) || 'light')
